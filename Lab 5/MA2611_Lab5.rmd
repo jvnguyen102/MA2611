@@ -1,0 +1,95 @@
+---
+title: "MA 2611 Lab5"
+author: "Jacob Nguyen"
+date: "2022-09-29"
+output:
+  pdf_document: default
+  html_document: default
+---
+1. In an eighth grade English class, the recent scores of an exam followed a normal 
+distribution X~N(78,36). Calculate the following:
+a. The proportion of the class expected to score below 50
+```{r}
+pnorm(q=50,mean=78,sd=6)
+```
+
+b. The proportion of the class expected to score above 90
+```{r}
+1 - pnorm(q=90,mean=78,sd=6)
+```
+
+c. The proportion of the class expected to score between 60 and 80
+```{r}
+pnorm(q=80,mean=78,sd=6) - pnorm(q=60,mean=78,sd=6)
+```
+
+d. The scores for the first and third quantiles of the class
+```{r}
+qnorm(p=0.25,mean=78,sd=6)
+qnorm(p=0.75,mean=78,sd=6)
+```
+
+e. The scores for the  5th and 95th percentiles of the class
+```{r}
+qnorm(p=0.05,mean=78,sd=6)
+qnorm(p=0.95,mean=78,sd=6)
+```
+
+ 
+2. Generate a random sample “x” of 200 observations following X~N(82,51) and create 
+a histogram of the sampling distribution of “x.” Calculate the expected value of “x” 
+and compare to where the histogram is centralized.  
+Is it centralized around E(X) = 82? Why or why not? 
+```{r}
+x<-rnorm(n=200,mean=82,sd=sqrt(51))
+hist(x)
+mean(x)
+```
+It is not centralized around E(X) = 82 because this is a random sample generated and the distribution will not exactly be centered around the given mean, 82.
+
+3. Assume a continuous random variable X~N(0,1). The following sample R code 
+generates the histogram and density of the sample mean for n=10: 
+
+a.  Draw the histograms for “xBar”
+```{r}
+n<-100 # sample size  
+sampleN<-1000 # number of samples  
+xBar<-array(NA, sampleN) # store values of sample mean for all samples  
+ 
+for (i in 1:sampleN) {  
+aSample<-rnorm(n) # generates a sample of size "n" from N(0,1)  
+xBar[i]<-mean(aSample) # stores sample mean of all 1000 samples  
+}
+
+hist(xBar, freq=FALSE) # histogram for the sample mean  
+x<-seq(from=-1, to=1, by=0.005) # defines "x" for plotting  
+lines(x, dnorm(x,mean=0,sd=1/sqrt(n)),col="red")
+
+n2<-1000 # sample size  
+sampleN<-1000 # number of samples  
+xBar2<-array(NA, sampleN) # store values of sample mean for all samples  
+ 
+for (i in 1:sampleN) {  
+aSample<-rnorm(n) # generates a sample of size "n" from N(0,1)  
+xBar2[i]<-mean(aSample) # stores sample mean of all 1000 samples  
+}
+
+hist(xBar2, freq=FALSE) # histogram for the sample mean  
+x2<-seq(from=-1, to=1, by=0.005) # defines "x" for plotting  
+lines(x, dnorm(x,mean=0,sd=1/sqrt(n)),col="red")
+```
+
+b.  Draw the density plots for each “n”
+```{r}
+plot(x, dnorm(x), type = "l")
+plot(x2, dnorm(x2), type = "l")
+```
+
+c.  Draw the normal probability plots for “xBar”
+```{r}
+qqnorm(xBar)
+qqline(xBar)
+qqnorm(xBar2)
+qqline(xBar2)
+```
+
