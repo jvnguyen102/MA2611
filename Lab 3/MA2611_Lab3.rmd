@@ -1,0 +1,101 @@
+---
+title: "MA 2611 Lab 3"
+author: "Jacob Nguyen"
+date: "2022-09-15"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+1. Consider an unfair coin with a chance of 0.2 to get heads and 0.8 to get tails.
+
+a. For 3 independent coin flips, what are the possible outcomes for heads and tails and their relative frequencies?
+
+HHH = .008, HHT = .032, HTT = .128, TTT = .512, TTH = .032, THH = .032, THT = .128, HTH = .032
+
+
+b. For 1000 independent coin flips, draw a line plot to visualize how the 
+relative frequency converges for the probability of landing heads up.
+```{r}
+coin.1000 = sample(c(0,1),1000,replace=T,prob = c(0.8,0.2))
+heads.1000 = cumsum(coin.1000==1)
+heads.prop = heads.1000/(1:1000)
+plot(1:1000, heads.prop, type="l", xlab="Number of Flips",
+ylab="Frequency of Heads") 
+lines(1: 1000, rep(0.2, 1000), col="red") 
+```
+
+2. Assume a random variable X follows a discrete distribution, where the possible 
+values of X are {0, 2, 4, 6} with the respective probabilities {0.3, 0.2, 0.2, 0.3}.
+
+a. Calculate P(X >= 3) and P(X <= 4)  
+P(X >= 3) = (0.2 + 0.3) = **0.5**
+P(X <= 4) = (0.3 + 0.2 + 0.2) = **0.7**
+
+
+b. Calculate the expected value of X  
+E(X) = 0(0.3) + 2(0.2) + 4(0.2) + 6(0.3) = **3**
+
+
+c. Calculate the standard deviation of X  
+SD = **2.41**
+
+
+d. Generate a sample of 1000 values of X and see how close the sample 
+frequencies, the sample mean, and the sample standard deviation are to 
+the calculated values in parts (b) and (c).
+```{r}
+x = sample(c(0,2,4,6),1000,replace=T,prob = c(0.3,0.2,0.2,0.3))
+table(x)/1000
+```
+
+```{r}
+mean(x)
+```
+
+```{r}
+sd(x)
+```
+
+
+e. Create a barplot using the sample of X from part (d) using different colors 
+to distinguish different values. Label the axes and add a title to the plot.
+```{r}
+z = table(x)
+names(z)<-c("0","2","4","6")
+barplot(z,main="Bar Chart of 1000 Samples",
+col=c("red","green","blue","yellow"),
+xlab="Category",ylab="Frequency") 
+```
+
+
+3. Let a discrete random variable Y following a binomial distribution:  
+Y ~ Binomial(8, 0.5)
+
+```{r}
+Y = rbinom(1000,8,0.5)
+```
+
+
+a. Calculate P(Y=5)
+```{r}
+sum(Y==5)/1000 
+```
+
+
+b. Calculate P(Y<3) and P(Y>6)
+```{r}
+sum(Y<3)/1000
+sum(Y>6)/1000
+```
+
+
+c. Generate a sample of 20000 values of Y and create a barplot of the 
+distribution using different colors to distinguish different values. Label 
+the axes and add a title to the plot.
+```{r}
+Y = rbinom(20000,8,0.5)
+barplot(main="Distribution of 20000 Values",table(Y),xlab="Category",ylab="Frequency",
+col=c("red","orange","yellow","green","blue",
+"purple", "violet", "pink", "white"))
+```
