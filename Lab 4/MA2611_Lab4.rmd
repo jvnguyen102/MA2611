@@ -1,0 +1,81 @@
+---
+title: "MA 2611 Lab4"
+author: "Jacob Nguyen"
+date: "2022-09-22"
+output:
+  pdf_document: default
+  html_document: default
+---
+1. Let a discrete random variable Y ~ Binomial(8, 0.5). Generate 1000 random samples 
+as a vector “y” from this distribution and complete the following:
+```{r}
+y =  rbinom(1000,8,0.5)
+```
+
+a. Create a bar plot to show the distribution of the vector “y” with different colors for 
+each bar. Label both axes and add a title.
+```{r}
+barplot(main="Distribution of 1000 Values",table(y),xlab="Category",ylab="Frequency",
+col=c("red","orange","yellow","green","blue",
+"purple", "violet", "pink", "white"))
+```
+
+
+b. Calculate the expected value and variance for “y” and then again for Y using the 
+formulas discussed in class. Compare the results and discuss your findings. Does the 
+bar plot in part (a) closely align with your results?
+```{r}
+mean(y)
+var(y)
+```
+Mean = (0.5 x 1) + (0.5 x 2) + (0.5 x 3) + (0.5 x 4) + (0.5 x 5) + (0.5 x 6) + (0.5 x 7) + (0.5 x 8) = **4**
+Variance = **2**  
+The barplot in part (a) does closely align with my results.
+
+c. Calculate P(3 <= Y < 7) for the random sample “y” and then again using the pbinom() 
+function for Y ~ Binomial(8, 0.5). Compare the two results and discuss your findings.
+```{r}
+(sum(y<7)/1000) - (sum(y<=3)/1000)
+pbinom(q=6,size=8,prob=0.5) - pbinom(q=3,size=8,prob=0.5)
+```
+The probabilities of the random sample and pbinom() are very close in magnitude, but are not the same. It makes sense that the values are close because after enough samples.
+
+2. Let a discrete random variable Z ~ Poisson(10). Generate 1000 random samples as 
+a vector “z” from this distribution and complete the following:
+```{r}
+z =  rpois(1000,10)
+```
+
+a. What type of plot would you make to visualize the distribution of “z” and why? Create 
+the plot you choose with labels on the axes and a title. 
+```{r}
+hist(z,main="Poisson Distribution of 1000 Values",xlab="z",ylab="Frequency",col="blue")
+```
+I would choose a histogram to graph the distribution of "z" because this is a type of discrete normal distribution where you are expressing the probability of a number of events that occur in a fixed period of time. You are able to see how the distribution is always positively skewed.
+
+b. Calculate P(Z < 8) for the random sample “z” and then again using the ppois() function 
+for Z ~ Poisson(10). Compare the two results and discuss your findings. 
+```{r}
+(sum(z < 8)/1000)
+ppois(7,10)
+```
+The probabilities of the random sample and pbinom() are very close in magnitude, but are not the same. After enough samples, the probability will converge to the theoretical probability.
+
+3. Let a continuous random variable X ~ N(100, 81). Generate 1000 random samples 
+as a vector “x” from this distribution and complete the following:
+```{r}
+x = rnorm(n=1000,mean=100,sd=9)
+```
+
+a. Create a frequency histogram of “x” using one color. Label both axes and add a title.
+```{r}
+hist(x,col="red", main="Histogram of x",xlab="x",ylab="Frequency")
+```
+
+b. Calculate P(X > 72) for the random sample “x” and then again using the pnorm() 
+function for X ~ N(100, 81). Compare the two results and discuss your findings. 
+```{r}
+1 - pnorm(72,100,9)
+(sum(x>72)/1000)
+```
+The 2 calculated probabilities are very close to each other given the number of samples of "x". This is because after enough trials, the probability of "x" will converge to the theoretical probability of pnorm().
