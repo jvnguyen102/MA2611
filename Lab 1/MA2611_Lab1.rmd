@@ -1,0 +1,97 @@
+---
+title: "MA2611 Lab 1"
+author: "Jacob Nguyen"
+date: "2022-09-01"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+1. Create and store a vector of the data and answer the following questions:
+```{r}
+x = c(2413, 20310, 12637, 2753, 14505, 14440, 2379, 447, 345, 4784, 13803, 12668, 
+1235, 1257, 1671, 4041, 4145, 535, 5270, 3360, 3489, 1979, 2302, 807, 1772, 12807,
+5427, 13147, 6288, 1803, 13167, 5343, 6684, 3508, 1549, 4975, 11249, 3213, 811, 3560, 
+7244, 6643, 8571, 13534, 4395, 5729, 14417, 4863, 1951, 13809)
+```
+**Vector of Highest Points (in ft) of Each US State:**
+```{r}
+x
+```
+
+a. What is the height of the highest point in the US? And the lowest point in the US?
+
+**Height of Highest Point in the US:**
+```{r}
+max(x)
+```
+
+**Height of Lowest Point in US:**
+```{r}
+min(x)
+```
+
+b. Mt. Greylock, at 3489 ft, is the highest point in Massachusetts. Where does Massachusetts rank among US states for the highest point in the country?
+```{r}
+sort(x, decreasing=TRUE)
+match(3489, x)
+```
+Massachusetts ranks 21st among US States for the highest point in the country.
+
+c. Create a boxplot of the data set. Add an appropriate label to the y-axis plus a title on the plot. Provide an interpretation of the boxplot. What does this tell you about the highest points in the US? 
+```{r}
+boxplot(x, main = "Highest Points of Each US State", ylab = "Height (ft)")
+```
+This data set has a 1st quartile value of 2060 ft, a median of 4590 ft, and a 3rd quartile value of 10580 ft. Given this, the IQR = 8520 ft. It has a maximum value of 20310 ft, and a minimum of 345 ft. This boxplot tells us that the highest points in the US are within the upper adjacent value, and lower adjacent value meaning that there are no outliers. We can conclude that this data has a positive skew since the 3rd quartile to the median is greater than the 1st quartile to the median. A greater majority of the data points lay below the median since it is closer to the 1st quartile.
+
+2. Execute the following steps in order: 
+a. Create and store a vector with a sequence of values from 5 to -11 that progresses in steps of 0.3 without typing out each individual element 
+```{r}
+y = seq(from=5,to=-11, by = -0.3)
+y
+```
+
+b. Overwrite the part (a) vector using the same sequence with the order reversed
+```{r}
+y = sort(y,decreasing=FALSE)
+y
+```
+
+c. Create and store an index vector containing the first, middle, and last elements from the vector in part (b)
+```{r}
+index = c(y[1],y[length(y)/2],y[length(y)])
+index
+```
+
+3. Execute the following steps in order:
+a. Create and store a vector that contains the following: 
+         - a sequence of integers from 6 to 12 
+         - a threefold repetition of the value 5.3 
+         - the number -3 
+         - a twofold repetition of the numbers 1.2, 3.4, and 5.6
+```{r}
+v = c(seq(from=6, to=12), rep(5.3, times=1, each=3), -3, rep(c(1.2, 3.4, 5.6), times=1, each=2))
+v
+```
+
+b. Confirm the length of the vector in part (a) is 17
+```{r}
+length(v)
+```
+
+4. Create a data frame using data collected in your day-to-day life. It can be any data 
+you like, but the data frame must contain at least 10 rows and 3 columns of data.
+```{r}
+redsoxstats=data.frame(Name=c("Devers","Bogaerts","Verdugo","Martinez","Story","Arroyo",
+"Pham","Refsnyder","Hernandez","Dalbec","Plawecki","McGuire"), Position=c("3B","SS","RF",
+"DH","2B","UTIL","LF","RF","CF","1B","C", "C"), 
+AVG=(c(.288,.310,.287,.271,.233,.289,.282,.310,.219,.211,.216,.370)), 
+OBP=c(.344,.378,.332,.339,.299,.333,.325,.388,.277,.282,.282,.386), 
+OPS=c(.877,.839,.742,.767,.727,.760,.788,.879,.628,.644,.566,.849))
+```
+
+**2022 Red Sox Stats (as of 9/2/22)**
+```{r}
+redsoxstats
+```
+
